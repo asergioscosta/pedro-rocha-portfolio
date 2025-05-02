@@ -15,7 +15,7 @@ body {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 0;
+    padding: 40px 0;
 }
 
 h1,
@@ -112,7 +112,7 @@ nav ul li a:hover {
 
 /* Seções */
 .section {
-    padding-top: 80px;
+    padding-top: 60px;
 }
 
 .bg-light {
@@ -758,4 +758,85 @@ nav ul li a:hover {
 
 .social-links a:hover i {
     transform: scale(1.2);
+}
+
+/* Documentos */
+.documentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.documento-card {
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    color: #333;
+    text-decoration: none;
+}
+
+.documento-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.doc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.doc-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.doc-content h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.doc-content p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.doc-size {
+    display: inline-block;
+    background: #f1f1f1;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #7f8c8d;
+}
+
+.doc-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    background-color: #f8f9fa;
+    color: #3498db;
+    transition: all 0.3s ease;
+}
+
+.documento-card:hover .doc-download {
+    background-color: #3498db;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .documentos-grid {
+        grid-template-columns: 1fr;
+    }
 }
