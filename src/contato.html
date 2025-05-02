@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedro Rocha - Contato</title>
+    <link rel="stylesheet" href="../src/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header id="header">
+        <nav>
+            <ul>
+                <li><a href="index.html#sobre">Sobre</a></li>
+                <li><a href="index.html#formacao">Formação</a></li>
+                <li><a href="index.html#experiencia">Experiência</a></li>
+                <li><a href="index.html#atividades">Atividades</a></li>
+                <li><a href="index.html#habilidades">Habilidades</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="contato" class="section">
+        <div class="container contact-section">
+            <h2>Entre em Contato</h2>
+            <p class="subtitle">Envie sua mensagem ou conecte-se pelas redes sociais</p>
+
+            <form id="form-contato" class="contact-form" action="https://formspree.io/f/xblogyvq" method="POST">
+                <div class="form-group">
+                    <label for="nome">Seu Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Seu E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Sua Mensagem</label>
+                    <textarea id="mensagem" name="mensagem" required></textarea>
+                </div>
+                <button type="submit" id="submit-btn">
+                    <span class="btn-text">Enviar Mensagem</span>
+                    <span class="loading-icon" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+
+            <div id="mensagem-sucesso" class="feedback-message success">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <h3>Mensagem enviada com sucesso!</h3>
+                    <p>Obrigado pelo seu contato. Responderei o mais breve possível.</p>
+                </div>
+            </div>
+
+            <div id="mensagem-erro" class="feedback-message error">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <h3>Ocorreu um erro</h3>
+                    <p>Não foi possível enviar sua mensagem. Por favor, tente novamente mais tarde ou entre em contato
+                        diretamente pelas redes sociais.</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-spin fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-spin fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-spin fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!--  Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pedro Rocha</h3>
+                    <p>Historiador, Educador Musical e Produtor Cultural</p>
+                </div>
+
+                <div class="footer-social">
+                    <h4>Redes Sociais</h4>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/pedroarochacosta/" target="_blank" aria-label="Instagram"
+                            class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/pedroarocha/" target="_blank" aria-label="LinkedIn"
+                            class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.facebook.com/pedro.rocha.costa" target="_blank" aria-label="Facebook"
+                            class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@trupencanta" target="_blank" aria-label="YouTube"
+                            class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const formulario = document.getElementById('form-contato');
+        const botaoEnviar = document.getElementById('submit-btn');
+        const textoBotao = botaoEnviar.querySelector('.btn-text');
+        const iconeCarregando = botaoEnviar.querySelector('.loading-icon');
+        const mensagemSucesso = document.getElementById('mensagem-sucesso');
+        const mensagemErro = document.getElementById('mensagem-erro');
+
+        mensagemSucesso.style.display = 'none';
+        mensagemErro.style.display = 'none';
+
+        formulario.addEventListener('submit', async function (evento) {
+            evento.preventDefault();
+
+            textoBotao.style.display = 'none';
+            iconeCarregando.style.display = 'inline-block';
+            botaoEnviar.disabled = true;
+
+            mensagemSucesso.style.display = 'none';
+            mensagemErro.style.display = 'none';
+
+            const dadosFormulario = new FormData(formulario);
+
+            try {
+                const resposta = await fetch(formulario.action, {
+                    method: formulario.method,
+                    body: dadosFormulario,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (resposta.ok) {
+                    mensagemSucesso.style.display = 'flex';
+                    formulario.reset();
+                } else {
+                    throw new Error('Erro no servidor');
+                }
+            } catch (erro) {
+                console.error('Erro ao enviar formulário:', erro);
+                mensagemErro.style.display = 'flex';
+            } finally {
+                textoBotao.style.display = 'inline-block';
+                iconeCarregando.style.display = 'none';
+                botaoEnviar.disabled = false;
+            }
+        });
+
+        const iconesSociais = document.querySelectorAll('.social-links a i');
+
+        iconesSociais.forEach(icone => {
+            icone.addEventListener('mouseenter', function () {
+                this.style.transform = 'scale(1.2)';
+            });
+
+            icone.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>
